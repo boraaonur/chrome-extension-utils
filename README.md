@@ -1,6 +1,6 @@
-# chrome-storage-utils
+# chrome-extension-utils
 
-A simple utility tool for Chrome extensions. This is a wrapper for `chrome.storage.local` methods to simplify its usage.
+A simple utility tool for Chrome extensions. This is a wrapper for `chrome.storage.local` methods to simplify its usage. It also has some helper functions to inject into websites.
 
 ## Usage
 
@@ -18,5 +18,5 @@ Here are the basic methods you can use:
 To install, run:
 
 ```
-npm install boraaonur/chrome-storage-utils
+npm install boraaonur/chrome-extension-utils
 ```
