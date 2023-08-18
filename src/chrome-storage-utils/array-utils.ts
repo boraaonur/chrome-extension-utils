@@ -1,4 +1,4 @@
-import { ChromeStorageUtils } from "./chrome-storage-utils.js";
+import { ChromeStorageUtils } from "./index.js";
 
 export class ArrayUtils {
   static async add({ storageKey, data }: { storageKey: string; data: any }) {
