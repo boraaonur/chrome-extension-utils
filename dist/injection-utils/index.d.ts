@@ -8,7 +8,7 @@ import { ReactElement } from "react";
  * @param {("before"|"after"|"append"|"replace")} position - Where to insert the component in relation to the target.
  */
 export declare function injectComponent({ targetElement, position, id, component, callback, }: {
-    targetElement: string;
+    targetElement: string | Element | HTMLElement;
     component: ReactElement;
     id: string;
     position: "before" | "after" | "append" | "replace";

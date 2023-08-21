@@ -8,7 +8,13 @@ import ReactDOM from "react-dom";
  * @param {("before"|"after"|"append"|"replace")} position - Where to insert the component in relation to the target.
  */
 export function injectComponent({ targetElement, position, id, component, callback, }) {
-    const targetNode = document.querySelector(targetElement);
+    let targetNode;
+    if (typeof targetElement === "string") {
+        targetNode = document.querySelector(targetElement);
+    }
+    else {
+        targetNode = targetElement;
+    }
     const existingComponent = document.getElementById(id);
     if (targetNode && !existingComponent) {
         const container = document.createElement("div");
