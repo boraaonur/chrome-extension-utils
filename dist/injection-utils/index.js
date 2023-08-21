@@ -7,14 +7,8 @@ import ReactDOM from "react-dom";
  * @param {string} id - The ID for the new element.
  * @param {("before"|"after"|"append"|"replace")} position - Where to insert the component in relation to the target.
  */
-export function injectComponent({ targetElement, position, id, component, callback, }) {
-    let targetNode;
-    if (typeof targetElement === "string") {
-        targetNode = document.querySelector(targetElement);
-    }
-    else {
-        targetNode = targetElement;
-    }
+export function safeInjectComponent({ targetElement, position, id, component, callback, }) {
+    const targetNode = determineTargetNode(targetElement);
     const existingComponent = document.getElementById(id);
     if (targetNode && !existingComponent) {
         const container = document.createElement("div");
@@ -40,4 +34,42 @@ export function injectComponent({ targetElement, position, id, component, callba
         }
         ReactDOM.render(component, container);
     }
+}
+export function injectComponent({ targetElement, position, id, component, callback, condition, config, }) {
+    const targetNode = determineTargetNode(targetElement);
+    if (condition) {
+        let container;
+        if (config?.createContainer) {
+            container = document.createElement("div");
+            container.id = id;
+        }
+        else {
+            container = targetNode;
+        }
+        if (callback && container) {
+            callback(container);
+        }
+        switch (position) {
+            case "before":
+                targetNode?.parentNode?.insertBefore(container, targetNode);
+                break;
+            case "after":
+                targetNode?.parentNode?.insertBefore(container, targetNode.nextSibling);
+                break;
+            case "replace":
+                targetNode?.parentNode?.replaceChild(container, targetNode);
+                break;
+            case "append":
+            default:
+                targetNode?.appendChild(container);
+                break;
+        }
+        ReactDOM.render(component, container);
+    }
+}
+// Helper function to determine the target node.
+function determineTargetNode(targetElement) {
+    return typeof targetElement === "string"
+        ? document.querySelector(targetElement)
+        : targetElement;
 }

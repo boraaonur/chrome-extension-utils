@@ -7,10 +7,23 @@ import { ReactElement } from "react";
  * @param {string} id - The ID for the new element.
  * @param {("before"|"after"|"append"|"replace")} position - Where to insert the component in relation to the target.
  */
-export declare function injectComponent({ targetElement, position, id, component, callback, }: {
-    targetElement: string | Element | HTMLElement;
+export declare function safeInjectComponent({ targetElement, position, id, component, callback, }: {
+    targetElement: string | HTMLElement;
     component: ReactElement;
     id: string;
     position: "before" | "after" | "append" | "replace";
     callback?: (container: HTMLElement) => void;
 }): void;
+export declare function injectComponent({ targetElement, position, id, component, callback, condition, config, }: {
+    targetElement: string | HTMLElement;
+    component: ReactElement;
+    id: string;
+    position: "before" | "after" | "append" | "replace";
+    callback?: (container: HTMLElement) => void;
+    condition: boolean;
+    config?: InjectComponentConfig;
+}): void;
+interface InjectComponentConfig {
+    createContainer: boolean;
+}
+export {};
