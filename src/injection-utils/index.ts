@@ -16,13 +16,20 @@ export function injectComponent({
   component,
   callback,
 }: {
-  targetElement: string;
+  targetElement: string | Element | HTMLElement;
   component: ReactElement;
   id: string;
   position: "before" | "after" | "append" | "replace";
   callback?: (container: HTMLElement) => void;
 }) {
-  const targetNode = document.querySelector(targetElement);
+  let targetNode: Element | null;
+
+  if (typeof targetElement === "string") {
+    targetNode = document.querySelector(targetElement);
+  } else {
+    targetNode = targetElement;
+  }
+
   const existingComponent = document.getElementById(id);
 
   if (targetNode && !existingComponent) {
